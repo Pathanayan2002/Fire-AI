@@ -1,0 +1,212 @@
+{
+  "accountOverview": {
+    "totalBalance": {
+      "amount": 120567.50,
+      "equity": 240952.00
+    },
+    "profitTarget": 8908.99,
+    "dailyLossLimit": 12908.99,
+    "mostTraded": ["NZDUSD", "GBPUSD", "AUDCHF", "USDCHF", "XAUUSD", "AUDNZD"]
+  },
+  "orderHistory": [
+    {
+      "symbol": "EUR/USD",
+      "type": "Sell",
+      "openDate": "2024-02-23",
+      "openPrice": "1.08568",
+      "closeDate": "2024-02-24",
+      "closePrice": "1.08564",
+      "lots": 100,
+      "profit": -5.00,
+      "duration": "11s",
+      "gain": "-0.01%"
+    },
+    {
+      "symbol": "EUR/USD",
+      "type": "Buy",
+      "openDate": "2024-02-23",
+      "openPrice": "1.08564",
+      "closeDate": "2024-02-24",
+      "closePrice": "1.08568",
+      "lots": 100,
+      "profit": 9.00,
+      "duration": "11s",
+      "gain": "+0.01%"
+    },
+    {
+      "symbol": "GBP/USD",
+      "type": "Buy",
+      "openDate": "2024-02-24",
+      "openPrice": "1.26500",
+      "closeDate": "2024-02-24",
+      "closePrice": "1.26750",
+      "lots": 50,
+      "profit": 125.00,
+      "duration": "2h 15m",
+      "gain": "+0.20%"
+    },
+    {
+      "symbol": "XAU/USD",
+      "type": "Buy",
+      "openDate": "2024-02-24",
+      "openPrice": "2032.45",
+      "closeDate": "2024-02-25",
+      "closePrice": "2045.80",
+      "lots": 10,
+      "profit": 1335.00,
+      "duration": "1d 3h",
+      "gain": "+0.65%"
+    },
+    {
+      "symbol": "USD/JPY",
+      "type": "Sell",
+      "openDate": "2024-02-25",
+      "openPrice": "150.45",
+      "closeDate": "2024-02-25",
+      "closePrice": "150.15",
+      "lots": 75,
+      "profit": 225.00,
+      "duration": "45m",
+      "gain": "+0.20%"
+    },
+    {
+      "symbol": "AUD/USD",
+      "type": "Sell",
+      "openDate": "2024-02-25",
+      "openPrice": "0.65720",
+      "closeDate": "2024-02-26",
+      "closePrice": "0.65920",
+      "lots": 25,
+      "profit": -50.00,
+      "duration": "4h 30m",
+      "gain": "-0.30%"
+    },
+    {
+      "symbol": "NZD/USD",
+      "type": "Buy",
+      "openDate": "2024-02-26",
+      "openPrice": "0.61450",
+      "closeDate": "2024-02-26",
+      "closePrice": "0.61580",
+      "lots": 40,
+      "profit": 52.00,
+      "duration": "1h 20m",
+      "gain": "+0.21%"
+    },
+    {
+      "symbol": "EUR/JPY",
+      "type": "Sell",
+      "openDate": "2024-02-26",
+      "openPrice": "163.25",
+      "closeDate": "2024-02-27",
+      "closePrice": "162.85",
+      "lots": 60,
+      "profit": 240.00,
+      "duration": "5h 45m",
+      "gain": "+0.25%"
+    },
+    {
+      "symbol": "GBP/JPY",
+      "type": "Buy",
+      "openDate": "2024-02-27",
+      "openPrice": "190.45",
+      "closeDate": "2024-02-27",
+      "closePrice": "190.15",
+      "lots": 30,
+      "profit": -90.00,
+      "duration": "25m",
+      "gain": "-0.16%"
+    },
+    {
+      "symbol": "USD/CHF",
+      "type": "Buy",
+      "openDate": "2024-02-27",
+      "openPrice": "0.88250",
+      "closeDate": "2024-02-28",
+      "closePrice": "0.88450",
+      "lots": 45,
+      "profit": 90.00,
+      "duration": "3h 15m",
+      "gain": "+0.23%"
+    }
+  ],
+  "notifications": [
+    {
+      "time": "12 days ago",
+      "type": "RuleSoftBreach",
+      "message": "Closed trade not placed with a stop-loss"
+    },
+    {
+      "time": "8 days ago",
+      "type": "RuleSoftBreach",
+      "message": "Days since a trade was placed, closed"
+    },
+    {
+      "time": "5 days ago",
+      "type": "TradeAlert",
+      "message": "EURUSD reached target profit of 1.25%"
+    },
+    {
+      "time": "3 days ago",
+      "type": "SystemUpdate",
+      "message": "Platform maintenance scheduled for tomorrow"
+    },
+    {
+      "time": "2 days ago",
+      "type": "MarginCall",
+      "message": "Account margin level below 120%"
+    },
+    {
+      "time": "1 day ago",
+      "type": "TradeAlert",
+      "message": "New position opened: GBPUSD Buy @1.2650"
+    },
+    {
+      "time": "5 hours ago",
+      "type": "RuleHardBreach",
+      "message": "Maximum daily loss limit reached"
+    },
+    {
+      "time": "1 hour ago",
+      "type": "TradeAlert",
+      "message": "Stop loss adjusted for EURUSD position"
+    }
+  ],
+  "chartData": {
+    "dates": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
+    "balances": [
+      100000,
+      98000,
+      96000,
+      94000,
+      92000,
+      90000,
+      88000,
+      92000,
+      94000,
+      96000,
+      98000,
+      96000,
+      94000,
+      92000,
+      90000
+    ],
+    "equity": [
+      150000,
+      145000,
+      135000,
+      125000,
+      115000,
+      105000,
+      95000,
+      110000,
+      125000,
+      140000,
+      155000,
+      145000,
+      135000,
+      125000,
+      115000
+    ]
+  }
+}
