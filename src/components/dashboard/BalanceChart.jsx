@@ -5,17 +5,22 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import { motion } from 'framer-motion';
+import { useTheme } from '@mui/material/styles';
 
 const CustomTooltip = ({ active, payload, label }) => {
+  const theme = useTheme();
+  
   if (active && payload && payload.length) {
     return (
       <Box
         sx={{
-          bgcolor: 'rgba(255, 255, 255, 0.95)',
+          bgcolor: theme.palette.background.paper,
           p: 2,
           borderRadius: 2,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-          border: '1px solid rgba(0,0,0,0.05)'
+          boxShadow: theme.palette.mode === 'dark' 
+            ? '0 4px 20px rgba(0,0,0,0.5)'
+            : '0 4px 20px rgba(0,0,0,0.1)',
+          border: `1px solid ${theme.palette.divider}`
         }}
       >
         <Typography variant="subtitle2" sx={{ mb: 1 }}>
@@ -48,6 +53,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const BalanceEquityChart = ({ chartData }) => {
+  const theme = useTheme();
   const [timeRange, setTimeRange] = useState('1M');
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -96,8 +102,9 @@ const BalanceEquityChart = ({ chartData }) => {
       <Card sx={{ 
         p: 3, 
         borderRadius: 3,
-        boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-        background: 'linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%)',
+        background: theme.palette.mode === 'dark'
+          ? 'linear-gradient(145deg, rgba(30,30,30,0.8) 0%, rgba(20,20,20,1) 100%)'
+          : theme.palette.background.paper,
         position: 'relative',
         overflow: 'visible'
       }}>
@@ -106,10 +113,7 @@ const BalanceEquityChart = ({ chartData }) => {
             <Box>
               <Typography variant="h5" gutterBottom sx={{ 
                 fontWeight: 600,
-                background: 'linear-gradient(45deg, #1976D2, #2E7D32)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent'
+                color: theme.palette.primary.main
               }}>
                 Total Balance
               </Typography>
@@ -179,23 +183,20 @@ const BalanceEquityChart = ({ chartData }) => {
             width: '100%', 
             height: 350, 
             position: 'relative',
-            filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.1))',
-            backgroundColor: '#ffffff',
+            backgroundColor: theme.palette.background.paper,
             borderRadius: 1,
-            border: '1px solid rgba(0,0,0,0.1)',
-            backgroundImage: 'linear-gradient(0deg, rgba(248,249,250,1) 0%, rgba(255,255,255,1) 100%)',
+            border: `1px solid ${theme.palette.divider}`,
             '& .recharts-cartesian-grid-horizontal line, .recharts-cartesian-grid-vertical line': {
-              stroke: 'rgba(0,0,0,0.07)',
+              stroke: theme.palette.divider,
             },
             '& .recharts-cartesian-axis-line': {
-              stroke: 'rgba(0,0,0,0.2)',
+              stroke: theme.palette.divider,
             },
             '& .recharts-cartesian-axis-tick-line': {
-              stroke: 'rgba(0,0,0,0.2)',
+              stroke: theme.palette.divider,
             },
-            '& .recharts-default-tooltip': {
-              borderRadius: '8px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+            '& .recharts-text': {
+              fill: theme.palette.text.secondary,
             }
           }}>
             <ResponsiveContainer>
@@ -204,50 +205,56 @@ const BalanceEquityChart = ({ chartData }) => {
                 margin={{ top: 10, right: 10, left: 10, bottom: 10 }}
               >
                 <defs>
-                  {/* Shadow filter for the blue line */}
-                  <filter id="blueGlow" height="300%" width="300%" x="-100%" y="-100%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  {/* Shadow filter for the red line */}
-                  <filter id="redGlow" height="300%" width="300%" x="-100%" y="-100%">
-                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  {/* Grid pattern */}
-                  <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
-                    <rect width="80" height="80" fill="#f8f9fa"/>
-                    <rect width="80" height="80" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="1"/>
-                    <line x1="0" y1="40" x2="80" y2="40" stroke="rgba(0,0,0,0.03)" strokeWidth="1"/>
-                    <line x1="40" y1="0" x2="40" y2="80" stroke="rgba(0,0,0,0.03)" strokeWidth="1"/>
+                  <pattern 
+                    id="grid" 
+                    width="80" 
+                    height="80" 
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <rect 
+                      width="80" 
+                      height="80" 
+                      fill={theme.palette.background.paper}
+                    />
+                    <rect 
+                      width="80" 
+                      height="80" 
+                      fill="none" 
+                      stroke={theme.palette.divider} 
+                      strokeWidth="1"
+                    />
+                    <line 
+                      x1="0" y1="40" x2="80" y2="40" 
+                      stroke={theme.palette.divider} 
+                      strokeWidth="1"
+                    />
+                    <line 
+                      x1="40" y1="0" x2="40" y2="80" 
+                      stroke={theme.palette.divider} 
+                      strokeWidth="1"
+                    />
                   </pattern>
                 </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
+                
                 <CartesianGrid 
                   strokeDasharray="3 3" 
                   vertical={true} 
                   horizontal={true}
-                  stroke="rgba(0,0,0,0.07)"
+                  stroke={theme.palette.divider}
                 />
                 <XAxis 
                   dataKey="date"
                   axisLine={true}
                   tickLine={true}
-                  tick={{ fill: '#666', fontSize: 12 }}
-                  stroke="rgba(0,0,0,0.2)"
+                  tick={{ fill: theme.palette.text.secondary, fontSize: 12 }}
+                  stroke={theme.palette.divider}
                 />
                 <YAxis 
                   axisLine={true}
                   tickLine={true}
                   tickFormatter={(value) => `$${(value/1000).toFixed(0)}k`}
-                  tick={{ fill: '#666', fontSize: 12 }}
-                  stroke="rgba(0,0,0,0.2)"
+                  tick={{ fill: theme.palette.text.secondary, fontSize: 12 }}
+                  stroke={theme.palette.divider}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Line
