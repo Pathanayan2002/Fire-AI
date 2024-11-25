@@ -8,6 +8,7 @@ import data from '../../data.json';
 const TotalProfit = () => {
     const theme = useTheme();
     const { accountOverview } = data;
+    const isDark = theme.palette.mode === 'dark';
     
     const colors = ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
     const total = accountOverview.mostTraded.length;
@@ -19,45 +20,44 @@ const TotalProfit = () => {
     }));
 
     return (
-        <>
-            <div className='flex flex-col gap-4 max-w-3xl'>
+        <div className='w-full pb-6'>
+            <div className='flex flex-col gap-4 w-full'>
                 <div className='grid grid-cols-2 gap-4'>
-                    <div className="bg-white rounded-lg shadow-md p-4 w-full">
+                    <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md p-3 w-full`}>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <HiOutlineCash className="text-white text-3xl bg-blue-500 rounded-full p-1" />
-                                <div className="text-sm text-black">Profit Target
-                                    <span className="text-gray-400 block">
-                                        Of $120,567.50</span>
+                                <HiOutlineCash className="text-white text-2xl bg-blue-500 rounded-full p-1" />
+                                <div className={`text-sm ${isDark ? 'text-gray-200' : 'text-black'}`}>Profit Target
+                                    <span className={`${isDark ? 'text-gray-400' : 'text-gray-500'} block text-xs`}>Of $120,567.50</span>
                                 </div>
                             </div>
                             <div className="text-gray-400 cursor-pointer">⋮</div>
                         </div>
-                        <div className="text-xl font-semibold text-black">
+                        <div className={`text-lg font-semibold ${isDark ? 'text-gray-100' : 'text-black'} mt-2`}>
                             ${(8908.99).toLocaleString()}
                             <div className="text-sm text-gray-400">
-                                <hr className="border-t-2 border-gray-200 my-2" />
+                                <hr className={`border-t ${isDark ? 'border-gray-700' : 'border-gray-200'} my-1.5`} />
                                 <span className="text-gray-400 text-xs block">
                                     Enquity Pass Level <span className="text-blue-500 text-xs">$124,900.00</span>
                                 </span>
                             </div>
                         </div>
-
                     </div>
-                    <div className="bg-white rounded-lg shadow-md p-4 w-full">
+
+                    <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-lg shadow-md p-3 w-full`}>
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <CiInboxOut className="text-white text-3xl bg-orange-500 rounded-full p-1" />
-                                <div className="text-sm text-gray-500">Daily Loss Limit
-                                    <span className="text-gray-400 block">Of $120,567.50</span>
+                                <CiInboxOut className="text-white text-2xl bg-orange-500 rounded-full p-1" />
+                                <div className={`text-sm ${isDark ? 'text-gray-200' : 'text-gray-500'}`}>Daily Loss Limit
+                                    <span className={`${isDark ? 'text-gray-400' : 'text-gray-500'} block text-xs`}>Of $120,567.50</span>
                                 </div>
                             </div>
                             <div className="text-gray-400 cursor-pointer">⋮</div>
                         </div>
-                        <div className="text-xl font-semibold text-black">
+                        <div className={`text-lg font-semibold ${isDark ? 'text-gray-100' : 'text-black'} mt-2`}>
                             ${(12908.99).toLocaleString()}
-                             <div className="text-sm text-gray-400">
-                                <hr className="border-t-2 border-gray-200 my-2" />
+                            <div className="text-sm text-gray-400">
+                                <hr className={`border-t ${isDark ? 'border-gray-700' : 'border-gray-200'} my-1.5`} />
                                 <span className="text-gray-400 text-xs block">
                                     Enquity Breach Level <span className="text-orange-500 text-xs">$124,900.00</span>
                                 </span>
@@ -66,15 +66,15 @@ const TotalProfit = () => {
                     </div>
                 </div>
                 
-                <div className="bg-white rounded-xl shadow-[0_2px_8px_rgb(0,0,0,0.08)] p-5 w-full border border-gray-100">
+                <div className={`${isDark ? 'bg-gray-800' : 'bg-white'} rounded-xl shadow-[0_2px_8px_rgb(0,0,0,0.08)] p-5 w-full border ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
                     {/* Header */}
                     <div className="flex items-center justify-between mb-5">
                         <div className="flex items-center gap-3">
-                            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 rounded-lg">
+                            <div className={`${isDark ? 'bg-gray-700' : 'bg-gradient-to-r from-blue-50 to-indigo-50'} p-2 rounded-lg`}>
                                 <HiOutlineChartPie className="text-indigo-600 text-xl" />
                             </div>
                             <div>
-                                <h3 className="text-gray-800 font-semibold">Most Traded</h3>
+                                <h3 className={`${isDark ? 'text-gray-100' : 'text-gray-800'} font-semibold`}>Most Traded</h3>
                                 <p className="text-xs text-gray-500 mt-0.5">Trading volume distribution</p>
                             </div>
                         </div>
@@ -91,26 +91,25 @@ const TotalProfit = () => {
 
                     {/* Currency Pairs Grid */}
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="grid grid-cols-3 gap-3 flex-1">
+                        <div className="grid grid-cols-3 gap-3 flex-1 min-w-0">
                             {chartData.map((item) => (
                                 <div key={item.id} 
-                                     className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-md transition-colors cursor-pointer group"
+                                     className={`flex items-center gap-2 p-2 ${isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} rounded-md transition-colors cursor-pointer group overflow-hidden`}
                                 >
-                                    <div className="w-1 h-3.5 rounded-sm" 
+                                    <div className="w-1 h-3.5 rounded-sm flex-shrink-0" 
                                          style={{ backgroundColor: item.color }} 
                                     />
-                                    <span className="text-xs font-medium text-gray-600 uppercase group-hover:text-gray-800">
+                                    <span className={`text-xs font-medium ${isDark ? 'text-gray-300 group-hover:text-gray-100' : 'text-gray-600 group-hover:text-gray-800'} uppercase truncate`}>
                                         {item.label}
                                     </span>
                                 </div>
                             ))}
                         </div>
 
-                        {/* Total Indicator */}
-                        <div className="flex items-center bg-blue-50 rounded-lg px-3 py-2">
+                        <div className={`flex items-center ${isDark ? 'bg-gray-700' : 'bg-blue-50'} rounded-lg px-3 py-2`}>
                             <div className="flex items-center gap-2">
                                 <div className="text-xs text-gray-500">Total</div>
-                                <div className="text-sm font-semibold text-gray-800">{chartData.length}</div>
+                                <div className={`text-sm font-semibold ${isDark ? 'text-gray-100' : 'text-gray-800'}`}>{chartData.length}</div>
                             </div>
                         </div>
                     </div>
@@ -157,7 +156,7 @@ const TotalProfit = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
