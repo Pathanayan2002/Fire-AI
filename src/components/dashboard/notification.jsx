@@ -101,25 +101,22 @@ const StatCard = ({ icon: Icon, title, value, percentage, trend }) => {
 };
 
 const NotificationCards = () => {
+    const theme = useTheme();
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
     const notifications = data.notifications;
     const totalPages = Math.ceil(notifications.length / itemsPerPage);
+    const [timeRange, setTimeRange] = useState('30');
 
-    // Get current notifications
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentNotifications = notifications.slice(indexOfFirstItem, indexOfLastItem);
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
     return (
-        <div className="flex gap-8">
+        <Box sx={{ display: 'flex', gap: 4 }}>
             {/* Stats Cards Grid */}
-            <div className="w-1/2">
-                <div className="grid grid-cols-2 gap-6">
+            <Box sx={{ width: '50%' }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 3 }}>
                     <StatCard
                         icon={FaTrophy}
                         title="Average Win"
@@ -160,101 +157,165 @@ const NotificationCards = () => {
                         value="1:2.5"
                         trend={true}
                     />
-                </div>
-            </div>
+                </Box>
+            </Box>
 
             {/* Notifications Table */}
-            <div className="w-1/2">
-                <div className="bg-white rounded-xl shadow-[0_2px_8px_rgb(0,0,0,0.08)] p-5 border border-gray-100">
+            <Box sx={{ width: '50%' }}>
+                <Card sx={{ p: 3, borderRadius: 3 }}>
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-5">
-                        <div className="flex items-center gap-3">
-                            <div className="bg-gradient-to-r from-red-50 to-orange-50 p-2 rounded-lg">
-                                <HiExclamationCircle className="text-red-500 text-xl" />
-                            </div>
-                            <div>
-                                <h3 className="text-gray-800 font-semibold">Notifications</h3>
-                                <p className="text-xs text-gray-500 mt-0.5">Recent alerts and updates</p>
-                            </div>
-                        </div>
-                        <select className="text-xs border border-gray-200 rounded-lg px-3 py-1.5 text-gray-600 bg-white hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-100 transition-all">
-                            <option>Last 30 Days</option>
-                            <option>Last 7 Days</option>
-                            <option>Today</option>
-                        </select>
-                    </div>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" mb={3}>
+                        <Stack direction="row" spacing={2} alignItems="center">
+                            <Box sx={{ 
+                                p: 1,
+                                borderRadius: 2,
+                                bgcolor: theme.palette.mode === 'dark' 
+                                    ? alpha(theme.palette.error.main, 0.2)
+                                    : alpha(theme.palette.error.main, 0.1)
+                            }}>
+                                <HiExclamationCircle style={{ 
+                                    fontSize: 24,
+                                    color: theme.palette.error.main
+                                }} />
+                            </Box>
+                            <Box>
+                                <Typography variant="h6" color="text.primary" fontWeight={600}>
+                                    Notifications
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Recent alerts and updates
+                                </Typography>
+                            </Box>
+                        </Stack>
+                        
+                        <Select
+                            size="small"
+                            value={timeRange}
+                            onChange={(e) => setTimeRange(e.target.value)}
+                            sx={{ 
+                                minWidth: 130,
+                                '& .MuiSelect-select': {
+                                    py: 1,
+                                    fontSize: '0.875rem'
+                                }
+                            }}
+                        >
+                            <MenuItem value="30">Last 30 Days</MenuItem>
+                            <MenuItem value="7">Last 7 Days</MenuItem>
+                            <MenuItem value="1">Today</MenuItem>
+                        </Select>
+                    </Stack>
 
                     {/* Notifications List */}
-                    <div className="space-y-3">
+                    <Stack spacing={1}>
                         {currentNotifications.map((notification, index) => (
-                            <div 
+                            <Paper
                                 key={index}
-                                className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100"
+                                elevation={0}
+                                sx={{
+                                    p: 2,
+                                    borderRadius: 2,
+                                    border: `1px solid ${theme.palette.divider}`,
+                                    '&:hover': {
+                                        bgcolor: alpha(theme.palette.primary.main, 0.05),
+                                        borderColor: 'primary.main'
+                                    }
+                                }}
                             >
-                                <div className="w-2 h-2 rounded-full bg-red-500 mt-2" />
-                                <div className="flex-1">
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-sm text-gray-800 font-medium">
-                                            {notification.message}
-                                        </p>
-                                        <span className="text-xs text-gray-500">
-                                            {notification.time}
-                                        </span>
-                                    </div>
-                                    <span className="text-xs text-gray-500 mt-0.5 block">
-                                        {notification.type}
-                                    </span>
-                                </div>
-                            </div>
+                                <Stack direction="row" spacing={2}>
+                                    <Box sx={{
+                                        width: 8,
+                                        height: 8,
+                                        borderRadius: '50%',
+                                        bgcolor: 'error.main',
+                                        mt: 1
+                                    }} />
+                                    <Box sx={{ flex: 1 }}>
+                                        <Stack direction="row" justifyContent="space-between">
+                                            <Typography variant="body2" color="text.primary" fontWeight={500}>
+                                                {notification.message}
+                                            </Typography>
+                                            <Typography variant="caption" color="text.secondary">
+                                                {notification.time}
+                                            </Typography>
+                                        </Stack>
+                                        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
+                                            {notification.type}
+                                        </Typography>
+                                    </Box>
+                                </Stack>
+                            </Paper>
                         ))}
-                    </div>
+                    </Stack>
 
                     {/* Pagination */}
-                    <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
-                        <div className="text-xs text-gray-500">
+                    <Stack 
+                        direction="row" 
+                        justifyContent="space-between" 
+                        alignItems="center"
+                        sx={{ 
+                            mt: 3, 
+                            pt: 2, 
+                            borderTop: `1px solid ${theme.palette.divider}` 
+                        }}
+                    >
+                        <Typography variant="caption" color="text.secondary">
                             Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, notifications.length)} of {notifications.length}
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => handlePageChange(currentPage - 1)}
+                        </Typography>
+                        
+                        <Stack direction="row" spacing={1}>
+                            <IconButton 
+                                size="small"
+                                onClick={() => setCurrentPage(prev => prev - 1)}
                                 disabled={currentPage === 1}
-                                className={`p-1.5 rounded-md transition-all ${
-                                    currentPage === 1
-                                        ? 'text-gray-300 cursor-not-allowed'
-                                        : 'text-gray-500 hover:bg-gray-100'
-                                }`}
+                                sx={{ 
+                                    color: 'text.secondary',
+                                    '&.Mui-disabled': {
+                                        color: 'action.disabled'
+                                    }
+                                }}
                             >
-                                <IoIosArrowBack className="text-lg" />
-                            </button>
+                                <IoIosArrowBack />
+                            </IconButton>
+                            
                             {[...Array(totalPages)].map((_, index) => (
-                                <button
+                                <IconButton
                                     key={index}
-                                    onClick={() => handlePageChange(index + 1)}
-                                    className={`w-8 h-8 rounded-md text-sm transition-all ${
-                                        currentPage === index + 1
-                                            ? 'bg-red-50 text-red-600 font-medium'
-                                            : 'text-gray-500 hover:bg-gray-50'
-                                    }`}
+                                    size="small"
+                                    onClick={() => setCurrentPage(index + 1)}
+                                    sx={{
+                                        minWidth: 32,
+                                        color: currentPage === index + 1 ? 'primary.main' : 'text.secondary',
+                                        bgcolor: currentPage === index + 1 ? alpha(theme.palette.primary.main, 0.1) : 'transparent',
+                                        '&:hover': {
+                                            bgcolor: currentPage === index + 1 
+                                                ? alpha(theme.palette.primary.main, 0.2)
+                                                : alpha(theme.palette.action.hover, 0.1)
+                                        }
+                                    }}
                                 >
                                     {index + 1}
-                                </button>
+                                </IconButton>
                             ))}
-                            <button
-                                onClick={() => handlePageChange(currentPage + 1)}
+                            
+                            <IconButton 
+                                size="small"
+                                onClick={() => setCurrentPage(prev => prev + 1)}
                                 disabled={currentPage === totalPages}
-                                className={`p-1.5 rounded-md transition-all ${
-                                    currentPage === totalPages
-                                        ? 'text-gray-300 cursor-not-allowed'
-                                        : 'text-gray-500 hover:bg-gray-100'
-                                }`}
+                                sx={{ 
+                                    color: 'text.secondary',
+                                    '&.Mui-disabled': {
+                                        color: 'action.disabled'
+                                    }
+                                }}
                             >
-                                <IoIosArrowForward className="text-lg" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                <IoIosArrowForward />
+                            </IconButton>
+                        </Stack>
+                    </Stack>
+                </Card>
+            </Box>
+        </Box>
     );
 };
 

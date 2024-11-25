@@ -2,12 +2,13 @@ import { HiOutlineCash } from "react-icons/hi";
 import { CiInboxOut } from "react-icons/ci";
 import { HiOutlineChartPie, HiDotsVertical } from "react-icons/hi";
 import { PieChart } from '@mui/x-charts/PieChart';
+import { Box, Card, Stack, Typography, IconButton, Select, MenuItem, useTheme, alpha } from '@mui/material';
 import data from '../../data.json';
 
 const TotalProfit = () => {
+    const theme = useTheme();
     const { accountOverview } = data;
     
-    // Calculate percentages and assign colors
     const colors = ['#4F46E5', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899'];
     const total = accountOverview.mostTraded.length;
     const chartData = accountOverview.mostTraded.map((pair, index) => ({
@@ -18,45 +19,45 @@ const TotalProfit = () => {
     }));
 
     return (
-        <div className='w-full'>
-            <div className='flex flex-col gap-4 w-full '>
+        <>
+            <div className='flex flex-col gap-4 max-w-3xl'>
                 <div className='grid grid-cols-2 gap-4'>
-                    <div className="bg-white rounded-lg shadow-md p-3 w-full">
+                    <div className="bg-white rounded-lg shadow-md p-4 w-full">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <HiOutlineCash className="text-white text-2xl bg-blue-500 rounded-full p-1" />
+                                <HiOutlineCash className="text-white text-3xl bg-blue-500 rounded-full p-1" />
                                 <div className="text-sm text-black">Profit Target
-                                    <span className="text-gray-400 block text-xs">
+                                    <span className="text-gray-400 block">
                                         Of $120,567.50</span>
                                 </div>
                             </div>
                             <div className="text-gray-400 cursor-pointer">⋮</div>
                         </div>
-                        <div className="text-lg font-semibold text-black mt-2">
+                        <div className="text-xl font-semibold text-black">
                             ${(8908.99).toLocaleString()}
                             <div className="text-sm text-gray-400">
-                                <hr className="border-t border-gray-200 my-1.5" />
+                                <hr className="border-t-2 border-gray-200 my-2" />
                                 <span className="text-gray-400 text-xs block">
                                     Enquity Pass Level <span className="text-blue-500 text-xs">$124,900.00</span>
                                 </span>
                             </div>
                         </div>
+
                     </div>
-                    <div className="bg-white rounded-lg shadow-md p-3 w-full">
+                    <div className="bg-white rounded-lg shadow-md p-4 w-full">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                                <CiInboxOut className="text-white text-2xl bg-orange-500 rounded-full p-1" />
+                                <CiInboxOut className="text-white text-3xl bg-orange-500 rounded-full p-1" />
                                 <div className="text-sm text-gray-500">Daily Loss Limit
-                                    <span className="text-gray-400 block text-xs">
-                                        Of $120,567.50</span>
+                                    <span className="text-gray-400 block">Of $120,567.50</span>
                                 </div>
                             </div>
                             <div className="text-gray-400 cursor-pointer">⋮</div>
                         </div>
-                        <div className="text-lg font-semibold text-black mt-2">
+                        <div className="text-xl font-semibold text-black">
                             ${(12908.99).toLocaleString()}
                              <div className="text-sm text-gray-400">
-                                <hr className="border-t border-gray-200 my-1.5" />
+                                <hr className="border-t-2 border-gray-200 my-2" />
                                 <span className="text-gray-400 text-xs block">
                                     Enquity Breach Level <span className="text-orange-500 text-xs">$124,900.00</span>
                                 </span>
@@ -90,15 +91,15 @@ const TotalProfit = () => {
 
                     {/* Currency Pairs Grid */}
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="grid grid-cols-3 gap-3 flex-1 min-w-0">
+                        <div className="grid grid-cols-3 gap-3 flex-1">
                             {chartData.map((item) => (
                                 <div key={item.id} 
-                                     className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-md transition-colors cursor-pointer group overflow-hidden"
+                                     className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-md transition-colors cursor-pointer group"
                                 >
-                                    <div className="w-1 h-3.5 rounded-sm flex-shrink-0" 
+                                    <div className="w-1 h-3.5 rounded-sm" 
                                          style={{ backgroundColor: item.color }} 
                                     />
-                                    <span className="text-xs font-medium text-gray-600 uppercase group-hover:text-gray-800 truncate">
+                                    <span className="text-xs font-medium text-gray-600 uppercase group-hover:text-gray-800">
                                         {item.label}
                                     </span>
                                 </div>
@@ -114,9 +115,9 @@ const TotalProfit = () => {
                         </div>
                     </div>
 
-                    {/* Pie Chart - reduced heights */}
-                    <div className="relative flex justify-center mt-4 h-[160px]">
-                        <div className="relative w-[250px] h-[120px]">
+                    {/* Pie Chart */}
+                    <div className="relative flex justify-center mt-4">
+                        <div className="relative w-[250px]">
                             <PieChart
                                 series={[
                                     {
@@ -125,12 +126,12 @@ const TotalProfit = () => {
                                         faded: { innerRadius: 30, additionalRadius: -30 },
                                         startAngle: -90,
                                         endAngle: 90,
-                                        innerRadius: 45,
-                                        outerRadius: 65,
+                                        innerRadius: 55,
+                                        outerRadius: 75,
                                         paddingAngle: 1,
                                     },
                                 ]}
-                                height={120}
+                                height={140}
                                 width={250}
                                 legend={{ hidden: true }}
                                 margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
@@ -144,8 +145,8 @@ const TotalProfit = () => {
                             </div>
                         </div>
                         
-                        {/* Volume Indicators - adjusted position */}
-                        <div className="absolute -bottom-2 w-full flex justify-between px-8">
+                        {/* Volume Indicators */}
+                        <div className="absolute -bottom-1 w-full flex justify-between px-8">
                             <div className="text-xs text-gray-500">
                                 <span className="font-medium text-gray-800">24.5K</span> min
                             </div>
@@ -156,7 +157,7 @@ const TotalProfit = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
